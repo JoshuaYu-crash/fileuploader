@@ -4,15 +4,18 @@ from app.user import *
 
 
 @user.route('/file/add', methods=['POST'])
-def userFileAdd():
+@user_login
+def userFileAdd(token):
     pass
 
 
 @user.route('/file/delete', methods=['POST'])
-def userFileDelete():
+@user_login
+def userFileDelete(token):
     pass
 
 
 @user.route('/file/view', methods=['POST'])
-def userFileView():
+@user_login
+def userFileView(token):
     pass
