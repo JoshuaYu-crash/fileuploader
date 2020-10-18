@@ -37,5 +37,7 @@ class User(db.Model):
 class UserFile(db.Model):
     __tablename__ = 'userfile'
     id = db.Column(db.Integer, primary_key=True)
+    oldfilename = db.Column(db.String(255))
     filename = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    time = db.Column(db.String(255))

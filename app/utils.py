@@ -4,6 +4,10 @@ from flask import request, jsonify
 
 from app.extension import *
 
+import os
+
+import uuid
+
 HOST = "127.0.0.1:5000"
 
 
@@ -63,6 +67,7 @@ def Error1004():
     }
     return message
 
+
 # 对象已存在
 def Error1005():
     message = {
@@ -70,3 +75,9 @@ def Error1005():
         "message": "对象已存在"
     }
     return message
+
+
+def random_filename(filename):
+    ext = os.path.splitext(filename)[1]
+    new_filename = uuid.uuid4().hex + ext
+    return new_filename
