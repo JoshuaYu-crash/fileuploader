@@ -52,20 +52,13 @@ def userFileView(token):
             'fileid': file.id,
             'filename': file.oldfilename,
             'time': file.time,
-            'downloadURL': 'http://' + HOST + '/admin/carousel/picture/' + file.filename
+            'downloadURL': 'http://' + HOST + '/user/file/download/' + file.filename
         }
         for file in user.files
     ]
     return jsonify(EventOK(token=token, files=files))
 
 
-@user.route('/file/download/', methods=['POST'])
-@user_login
-def userFileDownLoad(token):
-    userId = r.get(token)
-    user = User.query.get(userId)
-    fileId = request.form.get('fileid')
-    file = UserFile.query.get(fileId)
-    if file is None or file.user_id != user.id:
-        return jsonify(Error1004())
-    return send_from_directory(current_app.config['UPLOAD_PATH'], file.filename, as_attachment=True)
+@user.route('/file/download/<path:filename>', methods=['GET'])
+def userFileDownLoad(filename):
+    return send_from_directory(current_app.config['UPLOAD_PATH'], filename, as_attachment=True)
